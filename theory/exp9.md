@@ -1,0 +1,19 @@
+# Experiment 09
+
+# Aim
+To implement an algorithm that checks for the existence of an eularian circuit and constructs a circuit that traverses every edge of the graph exactly once.
+
+# Theory
+A graph is a mathematical structure used to represent relationships between different objects. It consists of vertices (nodes) and edges (connections between nodes). In this experiment, we work with an undirected graph where edges do not have any direction and connections are mutual between vertices.
+One of the important concepts in graph theory is an Eulerian circuit. An Eulerian circuit is a path in a graph that starts and ends at the same vertex and visits every edge exactly once. This means all edges of the graph are covered without repeating any edge, and we return back to the starting point. It is important to note that in an Eulerian circuit, vertices may be visited more than once, but edges must not be repeated.
+For a graph to have an Eulerian circuit, it must satisfy certain conditions. First, the graph must be connected, meaning all vertices are reachable from one another. Second, every vertex in the graph must have an even degree. The degree of a vertex is the number of edges connected to it. If even one vertex has an odd degree, then an Eulerian circuit is not possible. If exactly two vertices have odd degree, then only an Eulerian path (not circuit) is possible.
+In this experiment, we check whether the given graph satisfies the condition for an Eulerian circuit. This is done by counting the degree of each vertex. If all vertices have even degree, then the graph is Eulerian and a circuit can be constructed. Otherwise, the graph is not Eulerian.
+To construct the Eulerian circuit, we use a method similar to Fleury’s algorithm. In this method, we start from a vertex and repeatedly choose edges such that we do not break the connectivity of the graph. At each step, we try to avoid selecting a bridge edge unless there is no other option. A bridge is an edge whose removal disconnects the graph. By avoiding bridges, we ensure that we can continue traversing all remaining edges.
+In the program, the graph is represented using an adjacency list, where each vertex stores a list of its connected vertices. This makes it easy to traverse the graph and remove edges when they are used. Functions are used to remove and add edges, check connectivity using depth-first search (DFS), and determine whether an edge is valid to use in the current step.
+The algorithm starts from a suitable vertex and continues selecting valid edges until all edges are used. The selected edges are stored as part of the Eulerian path or circuit. During this process, edges are removed once they are used to ensure they are not repeated.
+For visualization, the graph is drawn using fixed positions for each vertex so that the structure remains clear. First, the original graph is displayed showing all vertices and edges. Then, if an Eulerian circuit exists, the edges forming the circuit are highlighted clearly. If the graph is not Eulerian, an appropriate message is displayed.
+In the given graph, some vertices have odd degree, so the condition for an Eulerian circuit is not satisfied. Therefore, the graph does not contain an Eulerian circuit. This is also reflected in the program output, where the circuit is not constructed.
+Thus, through this experiment, we understand the concept of Eulerian circuits, the conditions required for their existence, and how an algorithm can be used to construct such a circuit step by step. The visual representation helps in clearly understanding how edges are traversed and why certain graphs do not satisfy the Eulerian condition.
+
+# Conclusion
+An algorithm that checks for the existence of an eularian circuit and constructs a circuit that traverses every edge of the graph exactly once was successfully implemented.

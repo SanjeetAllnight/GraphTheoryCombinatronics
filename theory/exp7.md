@@ -1,0 +1,18 @@
+# Experiment 07
+
+# Aim
+To implement Shortest Path Algorithm in order to compute the shortest path between two vertices in a weighted graph.
+
+# Theory
+A graph is a structure made up of vertices (nodes) and edges (connections between nodes). In many real-life situations like road maps, internet routing, and transportation systems, each connection has a value like distance, cost, or time. Such graphs are called weighted graphs. In this experiment, we are interested in finding the shortest path from one vertex (called the source) to all other vertices in the graph.
+For solving this problem, we use Dijkstra’s Algorithm. It is a greedy algorithm, which means at every step it chooses the best possible option available at that moment. The main idea is to always move towards the vertex which has the smallest known distance from the source. This helps in gradually building the shortest path to all vertices.
+The algorithm starts by assigning a distance value to every vertex. Initially, all vertices are given a distance of infinity because we don’t know any path yet. Only the source vertex is given a distance of 0 because the distance from the source to itself is zero. Then we repeatedly select the vertex with the smallest distance which has not yet been visited. This vertex is then marked as visited.
+After selecting a vertex, we look at all its neighboring vertices and try to update their distances. If going through the current vertex gives a shorter path to a neighbor, then we update its distance. This process is called relaxation of edges. We keep repeating this process until all vertices are visited. At the end, we get the shortest distance from the source to every other vertex.
+In our program, we have implemented Dijkstra’s algorithm manually instead of using built-in functions. First, we created the graph using a list of nodes and edges with weights. Then we converted it into an adjacency list using a dictionary so that each node stores its neighbors and corresponding edge weights. This makes it easier to access connected vertices during the algorithm.
+We used a dictionary called dist to store the shortest distance of each vertex from the source. Initially, all values are set to infinity except the source. We also used a set called visited to keep track of vertices that are already processed. At each step, we search for the vertex with the minimum distance which is not visited. This is done using a simple loop so that the logic is easy to understand.
+Whenever we find a shorter path to a neighboring vertex, we update its distance in the dictionary. At the same time, we store the edges where updates happen. This is useful for visualization. We also stored each step of the algorithm so that we can later display how the solution is built step by step.
+For visualization, we used matplotlib to draw the graph manually. The positions of the vertices are fixed using a dictionary so that the graph looks similar in every step. In each step, all edges are drawn, but the edges where updates happen are highlighted in a different color. The currently selected vertex is shown in one color, visited vertices in another color, and unvisited vertices in a different color. We also displayed the current distance values near each node.
+This step-by-step graphical representation helps in clearly understanding how Dijkstra’s algorithm works internally. Instead of directly giving the final answer, it shows how the shortest paths are gradually calculated, which makes the concept much easier to understand.
+
+# Conclusion
+Shortest Path Algorithm in order to compute the shortest path between two vertices in a weighted graph was successfully implemented.
