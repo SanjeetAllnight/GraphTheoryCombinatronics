@@ -58,8 +58,10 @@ def get_css():
     }}
     .premium-card:hover {{
         transform: translateY(-4px) scale(1.01);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 12px 20px -3px rgba(16, 185, 129, 0.15), 0 4px 6px -2px rgba(16, 185, 129, 0.05);
         background-color: {card_hover};
+        border-color: {accent_primary};
+        cursor: pointer;
     }}
     h1, h2, h3, h4, h5, h6 {{
         color: {text_color} !important;
@@ -115,20 +117,15 @@ def get_css():
         border-color: {accent_primary};
         color: {accent_primary};
     }}
-    /* Invisible Overlay Button Hack for Clickable Cards */
-    .card-overlay-btn .stButton>button {{
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        opacity: 0 !important;
-        z-index: 10 !important;
-        cursor: pointer !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background-color: transparent !important;
-        border: none !important;
+    /* Clickable experiment cards */
+    .exp-card {{
+        cursor: pointer;
+        transition: transform 250ms ease, box-shadow 250ms ease, border-color 200ms ease, background-color 200ms ease;
+    }}
+    .exp-card:hover {{
+        transform: translateY(-5px) scale(1.015);
+        box-shadow: 0 16px 30px -6px rgba(16, 185, 129, 0.2), 0 6px 10px -4px rgba(16, 185, 129, 0.1) !important;
+        border-color: {accent_primary} !important;
     }}
     /* Inputs */
     .stTextInput input, .stDateInput input, .stSelectbox > div > div {{
@@ -163,12 +160,12 @@ with col_h2:
     st.markdown("</div>", unsafe_allow_html=True)
 
 header_html = f"""
-<div style="display: flex; align-items: center; padding: 0 0 20px 0; border-bottom: 1px solid {border_col}; margin-bottom: 30px;">
-    <img src="data:image/png;base64,{logo_b64}" style="height: 80px; max-width: 150px; object-fit: contain; margin-right: 25px; {'filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.3));' if st.session_state.theme == 'Dark' else ''}">
+<div style="display: flex; align-items: center; padding: 20px 0 30px 0; border-bottom: 1px solid {border_col}; margin-bottom: 40px; background: linear-gradient(to right, {'rgba(16, 185, 129, 0.05)' if st.session_state.theme == 'Dark' else 'rgba(16, 185, 129, 0.02)'}, transparent); border-radius: 16px 16px 0 0; padding-left: 20px;">
+    <img src="data:image/png;base64,{logo_b64}" style="height: 120px; max-width: 200px; object-fit: contain; margin-right: 35px; {'filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.4));' if st.session_state.theme == 'Dark' else 'filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));'}">
     <div style="display: flex; flex-direction: column;">
-        <h2 style="margin: 0 0 4px 0; font-size: 22px; font-weight: 700; color: {text_col}; letter-spacing: 0.5px;">GOA COLLEGE OF ENGINEERING</h2>
-        <h3 style="margin: 0 0 4px 0; font-size: 18px; color: {theme_accent}; font-weight: 600;">CMP226 – Graph Theory and Combinatorics Laboratory</h3>
-        <p style="margin: 0; font-size: 14px; color: {'#CBD5E1' if st.session_state.theme=='Dark' else '#6B7280'};">Academic Year 2025–2026</p>
+        <h1 style="margin: 0 0 8px 0; font-size: 38px; font-weight: 800; color: {text_col}; letter-spacing: 0.5px; text-transform: uppercase;">GOA COLLEGE OF ENGINEERING</h1>
+        <h2 style="margin: 0 0 8px 0; font-size: 24px; color: {theme_accent}; font-weight: 600;">CMP226 – Graph Theory and Combinatorics Laboratory</h2>
+        <p style="margin: 0; font-size: 16px; font-weight: 500; color: {'#94A3B8' if st.session_state.theme=='Dark' else '#64748B'};">Academic Year 2025–2026</p>
     </div>
 </div>
 """
@@ -191,17 +188,17 @@ icons = {
 }
 
 EXPERIMENT_LIST = [
-    ("1 Basic Graphs", "Graph", "Hardcoded Demo"),
-    ("2 Graph Isomorphism", "Compare", "Graph Algorithm"),
-    ("3 Subgraphs", "Network", "Visualization"),
-    ("4 Havel-Hakimi", "Chart", "Interactive"),
-    ("5 Line Graph", "Link", "Hardcoded Demo"),
-    ("6 Kruskal MST", "Tree", "Graph Algorithm"),
-    ("7 Dijkstra", "Route", "Graph Algorithm"),
-    ("8 Closed Walks Trails Paths", "Footsteps", "Visualization"),
-    ("9 Eulerian Circuit", "Refresh", "Graph Algorithm"),
-    ("10 Hamiltonian Circuit", "Circle", "Graph Algorithm"),
-    ("11 Greedy Graph Colouring", "Palette", "NetworkX")
+    ("Exp 1: Types of Graphs", "Graph", "Hardcoded Demo"),
+    ("Exp 2: Graph Isomorphism", "Compare", "Graph Algorithm"),
+    ("Exp 3: Subgraphs", "Network", "Visualization"),
+    ("Exp 4: Havel-Hakimi", "Chart", "Interactive"),
+    ("Exp 5: Line Graph", "Link", "Hardcoded Demo"),
+    ("Exp 6: Kruskal MST", "Tree", "Graph Algorithm"),
+    ("Exp 7: Dijkstra", "Route", "Graph Algorithm"),
+    ("Exp 8: Closed Walks Trails Paths", "Footsteps", "Visualization"),
+    ("Exp 9: Eulerian Circuit", "Refresh", "Graph Algorithm"),
+    ("Exp 10: Hamiltonian Circuit", "Circle", "Graph Algorithm"),
+    ("Exp 11: Greedy Vertex Colouring", "Palette", "NetworkX")
 ]
 
 if st.session_state.current_page == "Home":
@@ -219,11 +216,7 @@ if st.session_state.current_page == "Home":
         </div>
         <div class="premium-card" style="flex: 1; padding: 20px; margin-bottom: 0;">
             <h4 style="margin: 0 0 5px 0; color: {'#CBD5E1' if st.session_state.theme=='Dark' else '#6B7280'}; font-size: 13px; text-transform: uppercase;">Features</h4>
-            <h2 style="margin: 0; color: {text_col}; font-size: 24px;">Graph Visualizations</h2>
-        </div>
-        <div class="premium-card" style="flex: 1; padding: 20px; margin-bottom: 0;">
-            <h4 style="margin: 0 0 5px 0; color: {'#CBD5E1' if st.session_state.theme=='Dark' else '#6B7280'}; font-size: 13px; text-transform: uppercase;">Tools</h4>
-            <h2 style="margin: 0; color: {text_col}; font-size: 24px;">Interactive Solvers</h2>
+            <h2 style="margin: 0; color: {text_col}; font-size: 24px;">Matplotlib Graph Visualizations</h2>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -231,14 +224,15 @@ if st.session_state.current_page == "Home":
     cols = st.columns(3)
     for idx, (exp, icon_key, category) in enumerate(EXPERIMENT_LIST):
         col = cols[idx % 3]
-        match = re.match(r"(\d+)\s+(.+)", exp)
+        match = re.match(r"Exp (\d+):\s+(.+)", exp)
         exp_num = match.group(1).zfill(2)
         exp_title = match.group(2)
         svg_icon = icons.get(icon_key, "")
         
         with col:
             st.markdown(f"""
-            <div class="premium-card" style="padding: 24px; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="premium-card"
+                 style="padding: 24px; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 8px;">
                 <div>
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
                         <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: {theme_accent}; background: {'rgba(16, 185, 129, 0.15)' if st.session_state.theme=='Dark' else 'rgba(16, 185, 129, 0.1)'}; padding: 6px 12px; border-radius: 6px;">
@@ -257,11 +251,10 @@ if st.session_state.current_page == "Home":
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            st.markdown("<div class='card-overlay-btn' style='position: relative; margin-top: -190px; height: 180px; width: 100%; z-index: 20;'>", unsafe_allow_html=True)
-            if st.button("Open", key=f"btn_{exp_num}", use_container_width=True):
+            if st.button(f"Open Exp {exp_num}", key=f"btn_{exp_num}", use_container_width=True, type="secondary"):
                 st.session_state.current_page = exp
                 st.rerun()
-            st.markdown("</div><div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+            st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
 else:
     col_back, _ = st.columns([2, 10])
